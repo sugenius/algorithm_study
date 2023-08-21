@@ -1,0 +1,14 @@
+
+https://www.python.org/
+Download 탭 > 운영체제에 맞게 최신 버전 다운로드
+
+다운로드 파일 실행 후 
+Add python.exe to PATH 체크 하기 > Install Now 
+
+통합개발환경인 IDLE (Python 3.11 64-bit) 프로그램 실행 
+
+실행 방법 
+IDLE에서 new File 하여 test.py 파일 수정 후 저장, F5 실행 
+또는 
+py 파일을 IDLE 아이콘으로 이동하여 실행 
+
