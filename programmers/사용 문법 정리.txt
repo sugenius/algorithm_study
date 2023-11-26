@@ -1,0 +1,369 @@
+---------------------------------------------------------------------------------------------
+- 사용 문법 정리 (프로그래머스 Lv0 코딩테스트 기초문제)
+
+-입출력
+str = input()
+a = int(input())
+a, b = map(int, input().strip().split(' '))
+
+-
+길이 len(str)
+min(counts)
+max(counts)
+sum(counts)
+
+-print
+print(a,'+',b,'=',a+b)
+print(str1, str2, sep='')
+print(a, end='')
+
+-대소문자 변환
+x.isupper()
+x.islower()
+x.lower()
+x.upper()
+
+-공백 제거 
+strip()
+
+-반복문 for문 
+for i in range(len(str)) : 
+    if str[i].isupper() : 
+
+for x in str :
+    print(x)
+
+for i in range(0,len(names),5):
+        answer.append(names[i])
+
+while answer<=n:
+        answer+=numbers[i]
+        i+=1
+
+for i,q in enumerate(queries) :
+        s=q[0]
+        e=q[1]
+
+for idx,x in enumerate(arr) : 
+        if x>=50 and x%2==0 :
+            arr[idx]=x//2
+
+
+-조건문 if문
+if ineq=='<':
+    answer=1
+elif ineq=='>':
+    answer=1
+return answer 
+
+if 2 not in arr: #arr에 2가 없다면
+    return -1 
+
+if not finished[i] :
+    answer.append(todo_list[i])
+
+if 'latte' in want:
+
+-return 
+answer = a+b if flag else a-b
+
+- 변환
+x=int(str(a)+str(b))
+x=str(code[i])
+
+-연산
+짝수even    a%2==0 
+홀수odd     a%2==1
+배수 num%n==0 
+공배수 number%n==0 and number%m==0  #number가 n의 배수이면서 m의 배수 
+
+-숫자
+나머지 n%i==0
+몫(소숫값) n=n/2
+몫(정수) n=n//2
+거듭제곱 n**2
+정수화 int(a) 
+정수화 a=a//1 
+
+- 최대/최솟값
+minValue = 2147000000
+m=float('inf')
+
+-리스트[]
+answer=[]
+answer=list()
+answer.append(1)
+answer.pop()
+answer.pop(4)
+answer.remove(x) #하나만 제거함
+
+-set : 중복되지 않는 집합(set) 
+answer=set()
+차집합 set(str(num)) - set(['0','5']) 
+
+-짧게
+return [i for i in range(start,end+1)]
+return [i for i in range(k,n+1,k)]
+return [i for i in range(1, n+1) if i % k == 0]
+return list(range(start,end-1,-1))
+return [work for idx, work in enumerate(todo_list) if not finished[idx]]
+return sum(num_list) if len(num_list)>=11 else prod(num_list)
+return [word for word in strArr if 'ad' not in word]
+return sorted(ch for ch in myString.split('x') if ch)
+return sorted(num_list)[:5]
+return [i*k if k%2!=0 else i+k for i in arr]
+
+-논리연산
+#논리합 OR ∨ , 논리곱 AND ∧ (True 1, False 0)
+a=(True if x1==True or x2==True else False)
+b=(True if x3==True or x4==True else False)
+#return (x1 | x2) & (x3 | x4)
+#return (x1 or x2) and (x3 or x4)
+
+-정렬
+-sort()/sorted()
+sort() : answer.sort(), list.sort(reverse=True)
+    리스트 원본값을 직접 수정함
+sorted() : ret=sorted(list), ret=sorted(list,reverse=True)
+    리스트 원본 값은 그대로이고 정렬 값을 반환함
+
+-함수
+count() : counts=[arr.count(i) for i in arr] #각 숫자의 출현 횟수를 저장
+copy() : arr2.append(arr.copy()) #arr2.append(arr) 안됨. 
+abs() : 절댓값
+
+-find( )/index() <--> rindex(), rfind() : 뒤에서 부터 
+find() : x.find("ad")
+    #find(찾을 문자열), find(찾을 문자열, 시작 위치), find(찾을 문자열, 시작 위치, 종료 위치) 
+    찾는 문자가 없는 경우에 -1을 출력
+    문자열만 사용이 가능
+index() : num_list.index(x) x를 찾은 가장 첫 번째 인덱스 
+    찾는 문자가 없는 경우에 ValueError 에러가 발생
+    문자열, 리스트, 튜플 자료형에서 사용 가능하고 딕셔너리 자료형에는 사용 불가 
+myString.rfind(pat)
+
+-문자열 관련
+endsWith(),startswith():  my_string.endswith('abc')
+    endsWith() 는 특정문자열로 어떤 string이 특정문자열로 끝나는지를 검사해서 그 값을 Boolean값으로 반환 
+replace() : replace('a', 'A') , my_string.replace(alp,alp.upper()) 
+split() : myString.split(), myString.split(''), myString.split('x') 
+strip() 
+    인자가 없을 경우 공백 제거 
+    'abcdefg'.strip('a') : 인자로 전달된 문자를 String의 왼쪽과 오른쪽에서 제거합니다.
+    'abcdefg'.lstrip('a') : 인자로 전달된 문자를 String의 왼쪽에서 제거합니다.
+    'abcdefg'.rstrip('a') : 인자로 전달된 문자를 String의 오른쪽에서 제거합니다.
+
+-아스키코드 변환
+ord() : ord('A') 문자>숫자
+chr() : chr(65) 숫자>문자
+
+-슬라이싱
+my_string[len(my_string)-n:]
+my_string[-n:]
+num_list[::n] #n의 간격 
+
+- from math import prod 
+prod() : num_list 원소값을 모두 곱한 값을 리턴
+return sum(num_list) if len(num_list)>=11 else prod(num_list) 
+
+-2차원 배열
+answer=[[0]*n for i in range(n)]
+answer=[[0]*n for _ in range(n)]
+for s,e in intervals :
+for a,b in intervals: answer+=arr[a:b+1]
+return [work for idx, work in enumerate(todo_list) if not finished[idx]]
+for i,q in enumerate(queries) :
+
+-2차원 배열 방향 
+answer=[[0]*n for _ in range(n)]
+#ex 시계방향 : 우,하,좌,상
+   dx=[0,1,0,-1]
+   dy=[1,0,-1,0]
+
+-변수 바꾸기 
+a,b = b,a
+arr[i],arr[j] = arr[j],arr[i] 
+
+---------------------------------------------------------------------------------------------
+- 사용 문법 정리 (프로그래머스 Lv0 코딩테스트 입문문제)
+
+-최대공약수 (약분>최대공약수 : 공통되는 약수 중에서 최대 값)
+#for문으로 최대 공약수 찾기
+    for i in range(min(x,y),0,-1) : #뒤에서 부터
+        if x%i==0 and y%i==0 :
+            x=x//i 
+            y=y//i
+            break 
+
+#유클리드 호제법으로 최대 공약수(GCD, Greatest Common Divisor)를 찾기
+    def euclidean_algorithm(a, b):
+    # 큰 수와 작은 수를 구분하여 대입
+    if a < b:
+        a, b = b, a
+    
+    # b가 0이 될 때까지 반복
+    while b != 0:
+        # a를 b로 나눈 나머지를 a에 대입하고, b에는 이전의 a를 대입
+        a, b = b, a % b
+    
+    # 최대 공약수인 a를 반환
+    return a
+
+#유클리드 호제법2
+def gcd(a, b):
+    while b > 0:
+        a, b = b, a % b
+    return a
+
+#math 사용하여 최대 공약수 찾기 
+'''
+from math import gcd 
+def solution(a, b):
+    b //= gcd(a,b) #gcd (num1, num2....) : num1,num2... 들의 최대 공약수를 출력함 
+    while b%2==0:
+        b//=2
+    while b%5==0:
+        b//=5
+    return 1 if b==1 else 2
+'''
+
+'''
+from math import gcd
+
+def solution(a, b):
+    b = b / gcd(a, b)
+    for i in [2, 5]:
+        while not b % i:
+            b //= i
+
+    return 1 if b == 1 else 2
+'''
+
+
+-import math
+    gcd(): 최대공약수
+    lcm(): 최소공배수
+
+-중앙값
+x=sorted(array,reverse=True)
+answer = x[len(x)//2]
+
+sorted(array)[len(array) // 2]
+
+-최빈값 
+while len(array)!=0 : 
+    for i,x in enumerate(set(array)) :
+        array.remove(x)
+    if i==0 :
+        return x 
+return -1
+
+-짧게
+return [i*2 for i in numbers]
+answer = [i for i in range(1,n+1) if i%2!=0]
+return [i for i in range(1, n+1, 2)]
+return sum([i for i in range(2, n + 1, 2)])
+answer = sorted(numlist,key = lambda x : (abs(x-n), n-x)) 
+
+-배열 뒤집기 
+for i in range (len(num_list)//2) :
+    num_list[i],num_list[len(num_list)-1-i] = num_list[len(num_list)-1-i], num_list[i]
+num_list[::-1]
+num_list.reverse()
+while(num_list):
+    result.append(num_list.pop())
+
+-문자열 뒤집기
+for x in my_string : 
+    answer=x+answer
+return my_string[::-1]
+return ''.join(list(reversed(my_string)))
+for i in range(len(my_string)-1, -1, -1) :
+    answer += my_string[i]
+
+-리스트>문자열
+str = ''.join(list)
+
+-딕셔너리 dictionary 
+dic = {"a": 1, "b": 2}
+dic[key] : dic["a"] > 1 #단, key 값이 없는 경우 에러
+dic.get(key) : dic.get("a") > 1 #key 값이 없는 경우 None  
+dict.get(key, default=None) : print(a.get("c", 0)) > 0 #key가 존재하지 않을 경우 default 값을 출력함 
+
+-조합 ; 경우의 수 
+서로 다른 n개 중 m개를 뽑는 경우의 수 공식
+조합 nCm = (n-m)!*m! 분의 n! 
+n! 
+---------
+(n-m)!*m!
+
+import math
+    def solution(balls,share):
+        return math.comb(balls,share)
+
+def fac(n):
+        ret=1
+        for i in range(1,n+1) :
+            ret*=i
+        return ret
+answer = fac(balls)//((fac(balls-share))*fac(share))
+
+
+-배열 회전 
+if direction=='right':
+    numbers.insert(0,numbers.pop())
+elif direction=='left':
+    numbers.append(numbers.pop(0))
+
+-팩토리얼
+factorial = 1
+while factorial <= n:
+    factorial = factorial * answer
+
+-함수 
+isalpha() : x.isalpha() 알파벳 인지 ? 
+isdigit() : i.isdigit() 숫자인지 ? 
+
+-집합(set) 자료형
+교집합 s1 & s2 : set(s1)&set(s2) 교집합 #set()의 & 연산자는 두 집합(sets) 간의 교집합을 반환 
+합집합 s1 | s2 
+차집합 s1 - s2
+값 1개 추가하기 - add(): add(1) 
+값 여러 개 추가하기 - update() : s1.update([4, 5, 6]) 
+특정 값 제거하기 - remove() : s1.remove(2)
+
+-평행 ; 기울기
+좌표에서 기울기가 같다면 평행
+기울기 = y좌표의차이/x좌표의차이 
+
+-수
+제곱수  x=n**(1/2) #제곱근 2분의 1승
+기약분수 분모의 소인수가 2와 5만 존재해야 합니다.
+
+-int()
+int() : x=int(bin1,2) #bin1 값을 2진수로 변환. 단, bin1 문자열을 받아 정수로 변환  
+>>>> bin(x)[2:], bin(x).replace("0b","") #ex:0b11000 처럼 0b가 붙어 나오므로 자름 
+int('x',8) 함수 : 8/16/2진수 만자열을 정수형(int) 숫자로 형변환 할 수 있다. 
+oct() : 10진수>8진수 문자열 
+hex() : 10진수>16진수 문자열 
+bin() : 10진수 > 2진수 문자열 
+
+-문자열 밀기 
+from collections import deque
+
+def solution(A, B):
+        a, b = deque(A), deque(B)
+        for cnt in range(0, len(A)):
+            if a == b:
+                return cnt
+            a.rotate(1)
+        return -1 
+
+-종이 자르기
+answer=(M*N)-1
+'''
+종이를 1번 자르면 2장
+종이를 2번 자르면 3장
+종이를 3번 자르면 4장
+'''
+

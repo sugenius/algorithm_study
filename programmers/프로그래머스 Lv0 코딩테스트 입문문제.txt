@@ -1,0 +1,1729 @@
+프로그래머스 Lv0 코딩테스트 입문
+https://school.programmers.co.kr/learn/challenges/beginner?order=acceptance_desc
+
+DAY 1.사칙연산
+Q.두 수의 합
+def solution(num1, num2):
+    return (num1+num2)
+
+Q.두 수의 차
+def solution(num1, num2):
+    return (num1-num2)
+
+Q.두 수의 곱
+def solution(num1, num2):
+    return (num1*num2)
+
+Q.몫 구하기
+def solution(num1, num2):
+    return (num1//num2)
+
+DAY 2.사칙연산, 조건문, 배열
+Q.두 수의 나눗셈
+def solution(num1, num2):
+    return (num1/num2)*1000//1
+    #return int(num1 / num2 * 1000)
+
+Q.숫자 비교하기
+def solution(num1, num2):
+    return 1 if num1==num2 else -1 
+
+Q.분수의 덧셈***
+def solution(numer1, denom1, numer2, denom2): #**
+    answer = []
+    x=numer1*denom2+denom1*numer2
+    y=denom1*denom2
+    
+    #약분>최대공약수 : 공통되는 약수 중에서 최대 값 
+    '''
+    #틀림 ㅠ 왜 ? 
+    for i in range(2,min(x,y)) :         
+        if x%i==0 and y%i==0 :
+            x=x//i 
+            y=y//i
+    '''   
+    
+    '''
+    import math
+    gcd(): 최대공약수
+    lcm(): 최소공배수
+    '''
+    
+    '''
+    #for문으로 최대 공약수 찾기
+    for i in range(min(x,y),0,-1) : #뒤에서 부터
+        if x%i==0 and y%i==0 :
+            x=x//i 
+            y=y//i
+            break 
+    '''
+    '''
+    #유클리드 호제법으로 최대 공약수(GCD, Greatest Common Divisor)를 찾기
+    def euclidean_algorithm(a, b):
+    # 큰 수와 작은 수를 구분하여 대입
+    if a < b:
+        a, b = b, a
+    
+    # b가 0이 될 때까지 반복
+    while b != 0:
+        # a를 b로 나눈 나머지를 a에 대입하고, b에는 이전의 a를 대입
+        a, b = b, a % b
+    
+    # 최대 공약수인 a를 반환
+    return a
+    '''
+    '''
+    #유클리드 호제법2
+    def gcd(a, b):
+    while b > 0:
+        a, b = b, a % b
+    return a
+    '''
+
+    a=x
+    b=y
+    
+    if a<b :
+        a,b = b,a
+    while b>0 : 
+        a,b = b, a%b 
+    z=a #최대 공약수
+    
+    x=x//z
+    y=y//z
+
+            
+    answer.append(x)
+    answer.append(y)
+    return answer
+
+Q.배열 두 배 만들기 
+def solution(numbers):
+    return [i*2 for i in numbers]
+
+DAY 3.사칙연산, 배열, 수학
+Q.나머지 구하기
+def solution(num1, num2):
+    return num1%num2
+
+Q.중앙값 구하기
+def solution(array):
+    answer = 0
+    x=sorted(array,reverse=True)
+    answer = x[len(x)//2]
+    return answer
+    #sorted(array)[len(array) // 2]
+
+Q.최빈값 구하기***
+def solution(array):
+    answer = 0
+    
+    '''
+    #런타임 에러 ㅠ 
+    cont=[0]*(len(array)+1) 
+    for i in array :
+        cont[i]+=1
+        
+    maxCont=-1
+    tmp=[]
+    for i in range(len(cont)) :
+        if maxCont<cont[i] :
+            maxCont=cont[i]
+    for i in range(len(cont)) : 
+        if cont[i] == maxCont :
+            tmp.append(i)
+    if len(tuple(tmp))>1 :
+           answer = -1
+    else : 
+           answer = tmp[0]
+    '''
+    
+    '''
+    #런타임 에러 ㅠ 
+    cont=[0]*(len(array)+1)  #카운트 배열 생성
+    for i in array :
+        cont[i]+=1
+        
+    maxVal=0 #최빈값 출연 횟수
+    for i in cont :
+        if i == max(cont) :
+            maxVal+=1;
+    
+    if maxVal > 1 :
+        answer = -1
+    else : 
+        answer = cont.index(max(cont))
+    '''
+    
+    while len(array)!=0 : 
+        for i,x in enumerate(set(array)) :
+            array.remove(x)
+        if i==0 :
+            return x 
+    return -1
+
+    return answer
+
+Q.짝수는 싫어요
+def solution(n):
+    answer = [i for i in range(1,n+1) if i%2!=0]
+    return answer
+    #return [i for i in range(1, n+1, 2)]
+
+DAY 4.수학, 배열
+Q.피자 나워 먹기 (1)
+def solution(n):
+    answer = 0
+    i=1
+    while 7*i<n :
+        i+=1
+    answer = i
+    return answer
+    '''
+    if n%7 != 0:
+        answer = (n//7) + 1
+    else:
+        answer = n//7
+    '''
+
+Q.피자 나워 먹기 (2)
+def solution(n):
+    answer = 0
+    i=1
+    while True : #while(1):
+        if (6*i)%n==0 :
+            answer=i
+            break
+        i+=1
+    return answer
+
+Q.피자 나워 먹기 (3)
+def solution(slice, n):
+    answer = 0
+    i=1
+    while (1):
+        if (slice*i)>=n :
+            answer=i
+            break
+        i+=1
+    return answer
+
+Q.배열의 평균값
+def solution(numbers):
+    return sum(numbers)/len(numbers)
+
+DAY 5.수학, 배열
+Q.옷가게 할인 받기
+def solution(price):
+    if price>=500000:
+        price*=0.8
+    elif price>=300000:
+        price*=0.9
+    elif price>=100000:
+        price*=0.95
+    return int(price) #return price는 오답 
+
+Q.아이스 아메리카노
+def solution(money):
+    answer = []
+    answer.append(money//5500)
+    answer.append(money%5500)
+    return answer
+    #answer = [money // 5500, money % 5500]
+
+Q.나이 출력
+def solution(age):
+    return 2022-age+1
+
+Q.배열 뒤집기
+def solution(num_list):
+    for i in range (len(num_list)//2) :
+        num_list[i],num_list[len(num_list)-1-i] = num_list[len(num_list)-1-i], num_list[i]
+    return num_list
+    #return num_list[::-1]
+    #num_list.reverse()
+    #while(num_list):
+    #    result.append(num_list.pop())
+
+DAY 6.문자열, 반복문, 출력, 배열, 조건문
+Q.문자열 뒤집기
+def solution(my_string):
+    answer = ''
+    for x in my_string : 
+        answer=x+answer
+    return answer
+    #return my_string[::-1]
+    #return ''.join(list(reversed(my_string)))
+    #for i in range(len(my_string)-1, -1, -1) :
+    #    answer += my_string[i]
+
+Q.직각삼각형 출력하기
+n = int(input())
+for i in range(1,n+1) :
+    for j in range(i) :
+        print("*",sep='',end='')
+    print()
+#for i in range(n):
+#    print('*'*(i+1))
+
+Q.짝수 홀수 개수
+def solution(num_list):
+    sum1=0
+    sum2=0
+    for x in (num_list):
+        if x%2==0 :
+            sum1+=1
+        else :
+            sum2+=1
+    answer=[sum1,sum2]
+    return answer
+    '''
+    answer = [0,0]
+    for n in num_list:
+        answer[n%2]+=1
+    '''
+
+Q.문자 반복 출력하기
+def solution(my_string, n):
+    answer = ''
+    for x in my_string : 
+        answer+=((x)*n)
+    return answer
+    #return ''.join(i*n for i in my_string)
+
+DAY 7.문자열, 조건문, 수학, 반복문
+Q.특정 문자 제거하기
+def solution(my_string, letter):
+    answer = ''
+    for x in my_string :
+        if x!=letter : 
+            answer+=x
+    return answer
+    #return my_string.replace(letter, '')
+    #return ''.join([c for c in my_string if c != letter])
+
+Q.각도기
+def solution(angle):
+    answer = 0
+    if angle==90:
+        answer=2
+    elif angle==180 :
+        answer=4
+    elif angle<90:
+        answer=1
+    elif angle>90:
+        answer=3
+    return answer
+
+Q.양꼬치
+def solution(n, k):
+    answer = 0
+    if n>=10 and k>0:
+        k-=n//10
+    answer+=n*12000 + k*2000
+    return answer
+    #return 12000 * n + 2000 * (k - n // 10)
+
+Q.짝수의 합
+def solution(n):
+    answer = 0
+    for i in range(0,n+1) :
+        if i%2==0:
+            answer+=i
+    return answer
+    #return sum([i for i in range(2, n + 1, 2)])
+    
+DAY 8.배열, 구현, 수학
+Q.배열 자르기
+def solution(numbers, num1, num2):
+    return numbers[num1:num2+1]
+
+Q.외계행성의 나이
+def solution(age):
+    answer = ''
+    for x in str(age) :
+        tmp=''
+        if x=='0' : tmp='a'
+        elif x=='1' : tmp='b'
+        elif x=='2' : tmp='c'
+        elif x=='3' : tmp='d'
+        elif x=='4' : tmp='e'
+        elif x=='5' : tmp='f'
+        elif x=='6' : tmp='g'
+        elif x=='7' : tmp='h'
+        elif x=='8' : tmp='i'
+        elif x=='9' : tmp='j'
+        answer+=tmp
+    return answer
+    '''
+    age = str(age)
+    age = age.replace("0", "a")
+    '''
+
+Q.진료순서 정하기
+def solution(emergency):
+    answer = []
+    tmp=sorted(emergency,reverse=True)
+    for i in emergency : 
+        answer.append(tmp.index(i)+1)
+    return answer
+    #return [sorted(emergency, reverse=True).index(e) + 1 for e in emergency]
+
+Q.순서쌍의 개수
+def solution(n):
+    answer = 0
+    for i in range(1,n+1) :
+        if n%i==0 : 
+            answer+=1
+    return answer
+
+DAY 9.수학, 문자열, 해시, 완전탐색, 조건문
+Q.개미 군단
+def solution(hp):
+    answer = 0
+    while hp>0 :
+        if hp>=5:
+            answer+=hp//5
+            hp=hp%5
+        elif hp>=3:
+            answer+=hp//3
+            hp=hp%3
+        elif hp>=1:
+            answer+=hp//1
+            hp=hp%1
+    return answer
+    #return hp // 5 + (hp % 5 // 3) + ((hp % 5) % 3)
+
+Q.모스부호 (1)
+def solution(letter):
+    answer = ''
+    morse = { 
+    '.-':'a','-...':'b','-.-.':'c','-..':'d','.':'e','..-.':'f',
+    '--.':'g','....':'h','..':'i','.---':'j','-.-':'k','.-..':'l',
+    '--':'m','-.':'n','---':'o','.--.':'p','--.-':'q','.-.':'r',
+    '...':'s','-':'t','..-':'u','...-':'v','.--':'w','-..-':'x',
+    '-.--':'y','--..':'z'
+    }
+    for x in list(letter.split()) :
+        answer+=morse.get(x)
+        #answer+=morse[x]
+    return answer
+    
+Q.가위 바위 보
+def solution(rsp):
+    answer = ''
+    for x in rsp : 
+        if x=='0':
+            answer+='5'
+        elif x=='2':
+            answer+='0'
+        elif x=='5':
+            answer+='2'
+    return answer
+    '''
+    d = {'0':'5','2':'0','5':'2'}
+    return ''.join(d[i] for i in rsp)
+    '''
+
+Q.구슬을 나누는 경우의 수
+def solution(balls, share):
+    answer = 0
+    def fac(n):
+        ret=1
+        for i in range(1,n+1) :
+            ret*=i
+        return ret
+    answer = fac(balls)//((fac(balls-share))*fac(share))
+    return answer
+    '''
+    서로 다른 n개 중 m개를 뽑는 경우의 수 공식
+    조합 nCm = (n-m)!*m! 분의 n! 
+    n! 
+    ---------
+    (n-m)!*m!
+    '''
+    '''
+    import math
+    def solution(balls,share):
+        return math.comb(balls,share)
+    '''
+
+DAY 10.조건문, 배열, 수학, 시뮬레이션
+Q.점의 위치 구하기
+def solution(dot):
+    answer = 0
+    x=dot[0]
+    y=dot[1]
+    if x>0 :
+        if y>0:
+            answer=1
+        elif y<0:
+            answer=4
+    if x<0:
+        if y>0:
+            answer=2
+        elif y<0:
+            answer=3
+    return answer
+
+Q.2차원으로 만들기
+def solution(num_list, n):
+    answer=[]
+    for i in range(0,len(num_list),n) :
+        answer+=[num_list[i:i+n]]
+        #answer.append(num_list[i:i+n])
+    return answer
+
+Q.공 던지기***
+def solution(numbers, k):
+    answer = 0
+    i=0
+    cont=0
+    while (1) :
+        cont+=1 #횟수
+        if cont==k:
+            answer=numbers[i]
+            break 
+        if i==(len(numbers)-1) :
+            i=1
+        elif i==(len(numbers)-2) :
+            i=0
+        else :
+            i+=2
+    return answer
+    #return numbers[2 * (k - 1) % len(numbers)]
+
+Q.배열 회전시키기
+def solution(numbers, direction):
+    if direction=='right':
+        numbers.insert(0,numbers.pop())
+    elif direction=='left':
+        numbers.append(numbers.pop(0))
+    return numbers
+
+DAY 11.수학, 반복문
+Q.주사위의 개수***
+def solution(box, n):
+    answer = 0
+    a,b,c=box
+    answer = (a//n)*(b//n)*(c//n)
+    return answer
+
+Q.합성수 찾기
+def solution(n):
+    answer = 0
+    for i in range(1,n+1):
+        cont=0
+        for j in range(1,i+1):
+            if i%j==0:
+                cont+=1
+        if cont>=3:
+            answer+=1 
+    return answer
+
+Q.최댓값 만들기(1)
+def solution(numbers):
+    maxValue=-2147000000
+    for i in range(len(numbers)) :
+        for j in range(i+1,len(numbers)) :
+            if numbers[i]*numbers[j]>maxValue:
+                maxValue=numbers[i]*numbers[j]
+    return maxValue
+    '''
+    numbers.sort()
+    return numbers[-2] * numbers[-1]
+
+    numbers = sorted(numbers, reverse=True)
+    return numbers[0]*numbers[1]
+    '''
+
+Q.팩토리얼
+def solution(n):
+    answer = 0
+    i=1
+    while (1):
+        answer=i
+        tmp=1
+        for j in range(1,i+1) :
+            tmp*=j
+        if tmp==n :
+            break
+        elif tmp>n:
+            answer=i-1
+            break
+        else :
+            i+=1
+    return answer
+    '''
+    factorial = 1
+    while factorial <= n:
+        answer += 1
+        factorial = factorial * answer
+    answer -= 1
+    '''
+
+DAY 12.문자열, 정렬, 사칙연산, 수학
+Q.모음 제거
+def solution(my_string):
+    answer = ''
+    for x in my_string:
+        if x=='a' or x=='e' or x=='i' or x=='o' or x=='u':
+            continue
+        answer+=x
+    return answer
+    '''
+    vowels = ['a','e','i','o','u']
+    for vowel in vowels:
+        my_string = my_string.replace(vowel, '')
+    '''
+
+Q.문자열 정렬하기 (1)
+def solution(my_string):
+    answer = []
+    for x in my_string :
+        if x.isalpha() : #if i.isdigit():
+            continue 
+        answer.append(int(x))
+    answer.sort()
+    return answer
+
+Q.숨어있는 숫자의 덧셈 (1)
+def solution(my_string):
+    answer = 0
+    for x in my_string :
+        if x.isdigit():
+            answer+=int(x)
+    return answer
+
+Q.소인수분해***
+def solution(n):
+    answer = []
+    x=2
+    while x<=n :
+        if n%x==0 :
+            if x not in answer :
+                answer.append(x)
+            n=n//x
+        else :
+            x+=1
+    return answer
+
+DAY 13.문자열, 배열, 사칙연산, 수학, 조건문
+Q.컨트롤 제트
+def solution(s):
+    answer = 0
+    tmp=s.split()
+    for i in range(len(tmp)) :
+        if tmp[i]=="Z":
+            answer-=int(tmp[i-1])
+        else :
+            answer+=int(tmp[i])
+    return answer
+
+Q.배열 원소의 길이
+def solution(strlist):
+    answer = []
+    for x in strlist :
+        answer.append(len(x))
+    return answer
+    #return [len(str) for str in strlist]
+
+Q.중복된 문자 제거
+def solution(my_string):
+    answer = ''
+    tmp=[]
+    x=list(my_string)
+    for i in my_string :
+        if i not in tmp :
+            tmp.append(i)
+            answer+=i
+    return answer
+    '''
+    answer = ''
+    for i in my_string:
+        if i not in answer:
+            answer+=i
+    return answer
+    '''
+
+Q.삼각형의 완성조건(1)
+def solution(sides):
+    answer = 0
+    a,b,c=sorted(sides,reverse=True)
+    if a<b+c:
+        answer=1
+    else :
+        answer=2
+    return answer
+
+DAY 14.조건문, 반복문, 시뮬레이션, 문자열
+Q.가까운 수
+def solution(array, n):
+    answer = 0
+    minValue=2147000000
+    for x in array :
+        if abs(n-x) < minValue :
+            minValue=abs(n-x)
+            answer=x
+        if minValue == abs(n-x) and answer>x:
+                answer=x
+    return answer
+
+Q.369게임
+def solution(order):
+    answer = 0
+    for x in str(order) :
+        if x=='3' or x=='6' or x=='9':
+            answer+=1
+    return answer
+
+Q.암호 해독
+def solution(cipher, code):
+    answer = ''
+    for i in range(code-1,len(cipher),code) :
+        answer+=cipher[i]
+    return answer
+    # return cipher[code-1::code]
+
+Q.대문자와 소문자
+def solution(my_string):
+    answer = ''
+    for x in my_string :
+        if x.isupper():
+            answer+=x.lower()
+        elif x.islower():
+            answer+=x.upper()
+    return answer
+    #return my_string.swapcase()
+
+DAY 15.문자열, 해시, 배열, 수학
+Q.영어가 싫어요
+def solution(numbers):
+    '''
+    #왜 안돼 ㅠ ? 실행조차 안됨.. 
+    answer = 0
+    number={"zero":0, "one":1, "two":2, "three":3, "four":4, "five":5, "six":6, "seven":7, "eight":8, "nine":9}
+    i=1
+    while len(numbers)>0:
+       # print(numbers[:i])
+        #print(number.get(numbers[:i]))
+        if number.get(numbers[:i]) != None :
+            nembers=numbers[:i]
+            i=1
+        else :
+            i+=1
+    '''
+    
+    nums=["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
+    for i,n in enumerate(nums):
+        numbers=numbers.replace(n,str(i))
+    return int(numbers)
+
+Q.인덱스 바꾸기
+def solution(my_string, num1, num2):
+    my_string=list(my_string)
+    my_string[num1],my_string[num2] = my_string[num2],my_string[num1]
+    return ''.join(my_string)
+
+Q.한 번만 등장한 문자
+def solution(s):
+    answer = ''
+    tmp=[]
+    for x in s :
+        if s.count(x)==1 :
+            tmp.append(x)
+    tmp=sorted(tmp)
+    answer=answer.join(tmp)
+    return answer
+
+Q.약수 구하기
+def solution(n):
+    answer = []
+    for i in range(1,n+1) : 
+        if n%i==0 :
+            answer.append(i)
+    return answer
+
+DAY 16.문자열, 수학, 배열, 조건문
+Q.편지
+def solution(message):
+    return len(message)*2
+
+Q.가장 큰 수 찾기
+def solution(array):
+    #answer.append(max(array))
+    #answer.append(array.index(max(array)))
+    maxValue=-2147000000
+    idx=0
+    for i in range(len(array)) : 
+        if array[i]>maxValue :
+            maxValue=array[i]
+            idx=i
+    answer=[maxValue,idx]
+    return answer
+
+Q.문자열 계산하기
+def solution(my_string):
+    answer = 0
+    '''
+    #런타임 에러ㅠ 
+    a,b,c=(my_string).split()
+    if str(b)=="+" :
+        answer=int(a)+int(c)
+    elif str(b)=="-":
+        answer=int(a)-int(c)
+    '''
+    my_string=my_string.split()
+    answer=int(my_string[0])
+    for i in range(2,len(my_string)) :
+        if my_string[i-1]=="+" :
+            answer+=int(my_string[i])
+        elif my_string[i-1]=="-" :
+            answer-=int(my_string[i])
+    return answer
+    #solution=eval 
+
+Q.배열의 유사도
+def solution(s1, s2):
+    answer = 0
+    for i in range (len(s1)) :
+        for j in range(len(s2)) :
+            if s1[i]==s2[j] :
+                answer+=1
+                break
+    return answer
+    #return len(set(s1)&set(s2));
+    #set()의 & 연산자는 두 집합(sets) 간의 교집합을 반환
+    '''
+    for word in s1:
+        if word in s2:
+            answer += 1
+        else:
+            continue
+    '''
+
+DAY 17.문자열, 수학, 조건문, 배열, 사칙연산
+Q.숫자 찾기
+def solution(num, k):
+    answer = 0
+    num=str(num)
+    for i in range(len(num)) :
+        if int(num[i])==k:
+            answer=i+1
+            break
+    else :
+        answer=-1
+    return answer
+
+Q.n의 배수 고르기
+def solution(n, numlist):
+    answer = []
+    for x in numlist :
+        if x%n==0 : 
+            answer.append(x)
+    return answer
+    #answer = [i for i in numlist if i%n==0]
+
+Q.자릿수 더하기
+def solution(n):
+    answer = 0
+    n=str(n)
+    for x in n :
+        answer+=int(x)
+    return answer
+    #return sum(int(i) for i in str(n))
+
+Q.OX퀴즈
+def solution(quiz):
+    answer = []
+    for x in quiz : 
+        x,a,y,b,z = x.split()
+        if str(a)=="+" :
+            if int(x)+int(y)==int(z) :
+                answer.append('O')
+            else : 
+                answer.append('X')
+        elif str(a)=="-" :
+            if int(x)-int(y)==int(z) :
+                answer.append('O')
+            else : 
+                answer.append('X')
+    return answer
+
+DAY 18.문자열, 수학, 조건문, 정렬
+Q.문자열안에 문자열
+def solution(str1, str2):
+    answer = 1 if str1.find(str2)>=0 else 2
+    return answer
+    #return 1 if str2 in str1 else 2 
+
+Q.제곱수 판별하기
+def solution(n):
+    answer = 0
+    x=n**(1/2) #제곱근 2분의 1승
+    if x%1==0: #정수일 경우
+        answer=1
+    else : 
+        answer = 2 
+    return answer
+
+Q.세균 증식
+def solution(n, t):
+    answer=n
+    for i in range(0,t) :
+        answer*=2
+    return answer
+
+Q.문자열 정렬하기 (2)
+def solution(my_string):
+    return "".join(sorted(my_string.lower()))
+
+DAY 19.문자열, 배열, 조건문
+Q.7의 개수
+def solution(array):
+    answer = 0
+    for x in array :
+        for i in range(len(str(x))) :
+            if str(x)[i]=='7':
+                answer+=1
+    return answer
+    #return str(array).count('7') 
+
+Q.잘라서 배열로 저장하기
+def solution(my_str, n):
+    answer = []
+    for i in range(0,len(my_str),n):
+        answer.append(my_str[i:i+n])
+    return answer
+
+Q.중복된 숫자 개수
+def solution(array, n):
+    return array.count(n)
+
+Q.머쓱이보다 키 큰 사람
+def solution(array, height):
+    answer = 0
+    array.sort()
+    for x in array : 
+        if x>height : 
+            answer+=1
+    return answer
+    '''
+    array.append(height)
+    array.sort(reverse=True)
+    return array.index(height)
+    '''
+
+DAY 20.수학, 시뮬레이션, 문자열, 사칙연산
+Q.직사각형 넓이 구하기
+def solution(dots):
+    answer = 0
+    a=set()
+    b=set()
+    for x in dots :
+        a.add(x[0])
+        b.add(x[1])
+    x=abs(list(a)[0]-list(a)[1])
+    y=abs(list(b)[0]-list(b)[1])
+    answer=x*y
+    return answer
+    #return (max(dots)[0] - min(dots)[0])*(max(dots)[1] - min(dots)[1]) 
+    '''
+    x, y = [], []
+    for dot in dots:
+        x.append(dot[0])
+        y.append(dot[1])
+    return (max(x) - min(x)) * (max(y) - min(y))
+    '''
+
+Q.캐릭터의 좌표
+def solution(keyinput, board):
+    answer = []
+    
+    dx=[1,0,-1,0]
+    dy=[0,-1,0,1]
+    x=0
+    y=0
+    print((board[0]//2),(board[1]//2))
+    for k in keyinput : 
+        if k=="right" :
+            i=0
+        elif k=="down" :
+            i=1
+        elif k=="left" :
+            i=2
+        elif k=="up" :
+            i=3
+        if abs(x+dx[i])>(board[0]//2) or abs(y+dy[i])>(board[1]//2) :
+            continue
+        x=x+dx[i]
+        y=y+dy[i]
+            
+    answer=[x,y]
+    return answer
+
+Q.최댓값 만들기 (2)
+def solution(numbers):
+    answer = 0
+    numbers.sort()
+    answer=numbers[0]*numbers[1]
+    if answer<(numbers[len(numbers)-1]*numbers[len(numbers)-2]) :
+        answer=(numbers[len(numbers)-1]*numbers[len(numbers)-2])
+    return answer
+    '''
+    numbers = sorted(numbers)
+    return max(numbers[0] * numbers[1], numbers[-1]*numbers[-2]) 
+    '''
+
+Q.다항식 더하기***
+
+def solution(polynomial):
+    # if tmpx==1 경우 주의  
+    answer = ''
+    tmpx=0
+    tmpc=0
+    polynomial=polynomial.split(' + ')
+    for p in polynomial :
+        '''
+        if 'x' in p:
+            tmp=p.replace('x','')
+            if tmp=='' :
+                tmpx+=1
+            else :
+                tmpx+=int(tmp)
+        else : 
+            tmpc+=int(p)
+        '''
+        
+        
+        if 'x' in p: 
+            if p.isalpha():
+                tmpx+=1
+            else :
+                tmp=p.replace('x','')
+                tmpx+=int(tmp)
+        elif p.isdigit() :
+            tmpc+=int(p)
+        
+    if tmpx>0 :
+        if tmpx==1 : #주의
+            answer+='x'
+        else : 
+            answer+=str(tmpx)+'x'
+        
+        if tmpc>0 :
+            answer+=' + '+str(tmpc)
+    else :
+        if tmpc>0 :
+            answer+=str(tmpc)
+    return answer
+
+
+
+    def solution(polynomial):
+    tmpx = 0
+    tmpc = 0
+    for c in polynomial.split(' + '):
+        if c.isdigit():#상수항
+            tmpc+=int(c)
+        else:
+            tmpx = tmpx+1 if c=='x' else tmpx+int(c[:-1])
+    if tmpx == 0:
+        return str(tmpc)
+    elif tmpx==1:
+        return 'x + '+str(tmpc) if tmpc!=0 else 'x'
+    else:
+        return f'{tmpx}x + {tmpc}' if tmpc!=0 else f'{tmpx}x'
+    
+    return answer
+
+DAY 21.문자열, 사칙연산, 시뮬레이션, 2차원배열, 수학, 배열
+Q.숨어있는 숫자의 덧셈 (2)
+def solution(my_string):
+    answer = 0
+    for i in range(len(my_string)) : 
+        if my_string[i].isalpha() :
+            my_string=my_string.replace(my_string[i],' ')
+    my_string = list(map(int,my_string.split()))
+    answer = sum(my_string)
+    return answer
+
+Q.안전지대***
+def solution(board):
+    answer = 0
+    dx=[-1,0,1,1,0,0,-1,-1]
+    dy=[0,1,0,0,-1,-1,0,0]
+    n=len(board)
+    tmp=[]
+    '''
+    for i in board :
+        print(i)
+    '''
+    #지뢰 위치 파악
+    for i in range(n):
+        for j in range(n) :
+            if board[i][j]==1 :
+                tmp.append([i,j])
+                
+    for t in tmp :
+        x,y=t #지뢰 위치
+        for i in range(8) :
+            '''
+            #틀림 ㅠ 
+            if(x+dx[i]>=n or y+dy[i]>=n or x+dx[i]<0 or y+dy[i]<0) :
+                continue
+            x=x+dx[i]
+            y=y+dy[i]
+            if board[x][y]==1 :
+                continue
+            board[x][y]=1
+            '''
+            x=x+dx[i]
+            y=y+dy[i]
+            if 0 <= x < n and 0 <= y < n:
+                board[x][y] = 1
+            
+    #안전지대 카운팅
+    for i in range(n):
+        for j in range(n):
+            if board[i][j]==0:
+                answer+=1
+    
+    return answer
+
+Q.삼각형의 완성조건 (2)
+def solution(sides):
+    answer = 0
+    #가장 큰 변의 길이 값이 sides 안에 있는 경우
+    for i in range(max(sides)-min(sides)+1,max(sides)+1):
+        answer+=1
+    #아닌 경우 
+    for i in range(max(sides)+1,max(sides)+min(sides)):
+        answer+=1
+    return answer
+
+Q.외계어 사전
+def solution(spell, dic):
+    answer = 2
+    for d in dic :
+        if len(set(spell)-set(d))==0 : #차집합
+        #if not (set(spell)-set(d)) : #차집합
+            answer=1
+            break 
+    return answer
+
+DAY 22.dp, 수학, 조건문, 배열
+Q.저주의 숫자 3
+def solution(n):
+    answer = 0
+    i=1 #3x 마을에서 쓰는 숫자
+    cont=1 #10진법
+    while cont<=n :
+        #print('10진법 : ', cont , ' 3x 마을: ',i)
+        if(cont==n) : 
+            answer = i
+        if (str(i).find('3')>=0) or (i%3==0) :
+        #if i % 3 and '3' not in str(i):
+            i+=1
+        else : 
+            cont+=1
+            i+=1
+    return answer
+
+Q.평행***
+def solution(dots):
+    answer = 0
+    
+    #기울기가 같다면 평행 
+    #기울기 = y좌표의차이/x좌표의차이 
+    
+    cont=1
+    while cont<=3 :
+        if cont==1 :
+            d1,d2,d3,d4 = dots[0],dots[1],dots[2],dots[3]
+        if cont==2 :
+            d1,d2,d3,d4 = dots[0],dots[2],dots[1],dots[3]
+        if cont==3 :
+            d1,d2,d3,d4 = dots[0],dots[3],dots[1],dots[2]
+        
+        l1=(d1[1]-d2[1])/(d1[0]-d2[0])
+        l2=(d3[1]-d4[1])/(d3[0]-d4[0])
+        '''
+        if d1[1]-d2[1]==0 or d1[0]-d2[0]==0 :
+            l1=0
+        else :
+            l1=(d1[1]-d2[1])/(d1[0]-d2[0])
+            
+        if d3[1]-d4[1]==0 or d3[0]-d4[0]==0 :
+            l2=0
+        else :
+            l2=(d3[1]-d4[1])/(d3[0]-d4[0])
+        '''
+        if l1==l2:
+            return 1
+        cont+=1 
+        
+    return answer
+
+Q.겹치는 선분의 길이***
+def solution(lines):
+    answer = 0
+    
+    '''
+    tmps=[]
+    for l in lines :
+        tmp=[]
+        for i in range(min(l),max(l)) :
+            tmp.append(i)
+        tmps.append(set(tmp))
+    print('tmps:',tmps) #	[{0}, {2, 3, 4}, {3, 4, 5, 6, 7, 8}]
+    '''
+    
+    '''
+    집합(set) 자료형
+    교집합 s1 & s2 
+    합집합 s1 | s2 
+    차집합 s1 - s2
+    값 1개 추가하기 - add(): add(1) 
+    값 여러 개 추가하기 - update() : s1.update([4, 5, 6]) 
+    특정 값 제거하기 - remove() : s1.remove(2)
+    '''
+    sets=[ set(range(min(l),max(l))) for l in lines] #range(min(l), max(l)): 최소값과 최대값 사이의 숫자들로 이루어진 범위를 생성 
+    #range(start, end+1)로 하면 오류남 .. 시작점이 같은 것만 계산
+    answer = (len(sets[0]&sets[1] | sets[0]&sets[2] | sets[1]&sets[2])) #각 선분끼리의 교집합을 구하고 각각의 교집합의 합집합의 길이를 반환
+    
+    return answer 
+
+Q.유한소수 판별하기
+def solution(a, b):
+    ''' 일부 테스트케이스 틀림.. 왜 ? ㅠ 
+    answer = 0
+    
+    if a%b==0 : #정수가 되는 경우
+        return 1
+        
+    #최대공약수 찾기
+    x=max(a,b)
+    y=min(a,b)
+    while y!=0:
+        x,y=y,x%y
+    z=x #최대공약수
+    
+    #분자와 분모의 최대공약수로 약분
+    a=a//z
+    b=b//z
+    
+    #분모 약수 찾기
+    tmp=[]
+    for i in range(2,b+1):
+        if b%i==0 :
+            tmp.append(i)
+    print(tmp)    
+    
+    if (2 in tmp) or (5 in tmp) : 
+        if (2 in tmp):
+            tmp.remove(2)
+        if (5 in tmp) :
+            tmp.remove(5)
+        if len(tmp)>0 :
+            return 2
+        else : 
+            return 1
+    #elif (2 in tmp) and (5 in tmp) : 
+    #    while
+    else : 
+        return 2
+    '''
+
+    answer = 0
+    #기약분수로 나타내었을 때, 분모의 소인수가 2와 5만 존재해야 합니다.
+    
+    #정수도 유한소수로 분류 
+    if a==b % a%b==0:
+        return 1
+    
+    x=max(a,b)
+    y=min(a,b)
+    while y!=0 : 
+        x,y=y,x%y
+    a=a//x #x = 최대공약수
+    b=b//x
+    
+    for i in range(b//2) :
+        if b%2==0 :
+            b=b//2
+            if b==1 :
+                break
+        elif b%5==0:
+            b=b//5
+            if b==1 : 
+                break
+    answer = 1 if b==1 else 2 
+    
+    return answer
+
+'''
+from math import gcd 
+def solution(a, b):
+    b //= gcd(a,b) #gcd (num1, num2....) : num1,num2... 들의 최대 공약수를 출력함 
+    while b%2==0:
+        b//=2
+    while b%5==0:
+        b//=5
+    return 1 if b==1 else 2
+'''
+
+'''
+from math import gcd
+
+def solution(a, b):
+    b = b / gcd(a, b)
+    for i in [2, 5]:
+        while not b % i:
+            b //= i
+
+    return 1 if b == 1 else 2
+'''
+
+DAY 23.배열, 정렬, 문자열
+Q.특이한 정렬***
+def solution(numlist, n):
+    answer=[]
+    answer=sorted(numlist,reverse=True)
+    answer=sorted(answer,key=lambda x: abs(n-x))
+    #key=lambda x: abs(n - x) 의 값에서 나온 결과값이 작은 순서대로 정렬되는 것임. 
+    
+    '''#?
+    answer = sorted(numlist,key = lambda x : (abs(x-n), n-x)) 
+     
+    '''
+    '''
+    sorted: 리스트를 정렬하는 파이썬 내장 함수입니다.
+    numlist: 정렬할 리스트입니다.
+    key: 정렬 기준을 지정하는 옵션입니다. key에는 함수를 전달할 수 있으며, 이 함수의 반환값을 기준으로 리스트를 정렬합니다.
+    lambda x: (abs(x - n), n - x): 람다 함수를 사용하여 각 원소 x에 대한 정렬 키를 정의합니다. 이 람다 함수는 튜플을 반환합니다.
+    첫 번째 요소는 x와 n 사이의 차이의 절댓값인 abs(x - n)입니다.
+    두 번째 요소는 x와 n 사이의 차이인 n - x입니다.
+    따라서 리스트 numlist는 주어진 키에 따라 정렬되어 answer에 할당됩니다.
+    이 코드의 결과는 numlist의 원소들이 주어진 n 값과의 차이에 따라 정렬된 리스트가 됩니다.
+
+    '''
+    return answer
+
+Q.등수 매기기#***
+def solution(score):
+    answer = []
+    tmp=[]
+    for i in score : 
+        tmp.append(sum(i)/len(i))
+    #print('tmp',tmp)
+    sort_tmp = sorted(tmp,reverse=True)
+    #print('sort_tmp',sort_tmp)
+    
+    #tmmp=[]
+    for t in tmp :
+        #print('for: t ',t, ' sort_tmp.index(t)',sort_tmp.index(t))
+        answer.append(sort_tmp.index(t)+1)
+    
+    ''' #틀림 ㅠ 
+    for i,j in score :
+        tmp.append((i+j)//2)
+    tmp.sort(reverse=True)
+    print('tmp',tmp)
+    
+    for i,j in score :
+        #print(tmp.index((i+j)//2)+1,end=' ')
+        answer.append(tmp.index((i+j)//2)+1)
+    #index()는 리스트에서 특정 원소의 인덱스를 반환해주는 함수, 중복된 원소가 있으면 가장 작은 인덱스를 리턴 
+    '''
+    return answer
+
+Q.옹알이 (1)#***
+def solution(babbling):
+    words=["aya", "ye", "woo", "ma"]
+    answer = 0
+    tmp=[]
+    
+    for b in babbling : 
+        for w in words :
+            b=b.replace(w," ") #지우고 남은 문자끼리 합쳐지지 않도록 일부러 공백을 둔다.
+            #print('b',b,'strip()',b.strip())
+            tmp.append(b)
+            
+            if not b.strip(): 
+            #만약 b가 공백 문자열이라면 if b.strip():는 if ''가 되어 거짓(False)이 되고, b가 공백 문자열이 아니라면 if b.strip():는 if b가 되어 참(True)이 됩니다.
+                answer+=1 #i가 공백 문자열 또는 문자열 내에 공백만 있는 경우에 참이 되고, 그 외의 경우에는 거짓이 됩니다.
+                break
+            
+        '''
+        'abcdefg'.strip('a') : 인자로 전달된 문자를 String의 왼쪽과 오른쪽에서 제거합니다.
+        'abcdefg'.lstrip('a') : 인자로 전달된 문자를 String의 왼쪽에서 제거합니다.
+        'abcdefg'.rstrip('a') : 인자로 전달된 문자를 String의 오른쪽에서 제거합니다.
+        인자가 없을 경우 공백 제거
+        
+        '''
+                
+    return answer
+
+Q.로그인 성공?
+def solution(id_pw, db):
+    answer = ''
+    for d in db :
+        if d==id_pw : 
+            answer='login'
+            break
+        elif str(d[0])==str(id_pw[0]):
+            answer='wrong pw'
+            break #*
+            '''
+            본 조건에도 break가 필요하다. 
+            
+            login과 wrong pw, fail에 우선 순위가 있기 때문임. 아래 반례 예시 
+            입력값 〉 ["abc04", "345"], [["abc04", "335"], ["abc03", "345"]]
+            기댓값 〉 "wrong pw"
+            '''
+        else :
+            answer='fail'
+    return answer
+
+DAY 24.수학, 시뮬레이션, 문자열, 조건문, 반복문
+Q.치킨 쿠폰#***
+def solution(chicken):
+    answer = 0
+    
+    coupon = chicken 
+    while coupon >=10: 
+        ch=coupon//10
+        answer+=ch
+        coupon=coupon%10
+        coupon+=ch
+        #print(answer,ch,coupon)
+    return answer
+
+Q.이진수 더하기#***
+def solution(bin1, bin2):
+    answer = ''
+    x=int(bin1,2) #int(bin1,2) : bin1 값을 2진수로 변환. 단, bin1 문자열을 받아 정수로 변환 
+    y=int(bin2,2)
+    #print(bin(x + y))
+    answer = bin(x + y)[2:] #ex : 	0b11000 처럼 0b가 붙어 나오므로 자름
+    #bin(x + y).replace("0b","")
+    
+    '''
+    -int('x',8) 함수 : 8/16/2진수 만자열을 정수형(int) 숫자로 형변환 할 수 있다. 
+    
+    -oct() : 10진수>8진수 문자열 
+    -hex() : 10진수>16진수 문자열 
+    -bin() : 10진수 > 2진수 문자열 
+    '''
+    
+    return answer
+
+Q.A로 B 만들기
+def solution(before, after):
+    answer = 0
+    tmp=''
+    size=len(before)
+    for i in range(size) :
+        x=after[i]
+        if x in before : 
+            idx=before.index(x)
+            tmp+=before[idx]
+            before = before[:idx]+before[idx+1:]
+        else :
+            break
+    if tmp==after :
+        answer = 1
+    return answer
+
+    '''
+    before=sorted(before)
+    after=sorted(after)
+    if before==after:
+        return 1
+    else:
+        return 0
+
+    '''
+Q.k의 개수
+def solution(i, j, k):
+    answer = 0
+    arrs=list(range(i,j+1))
+    for a in arrs :
+        if str(k) in str(a) :
+            answer+=(str(a).count(str(k)))
+    return answer
+    #answer = sum([ str(i).count(str(k)) for i in range(i,j+1)])
+
+DAY 25.시뮬레이션, 조건문, 수학
+Q.문자열 밀기#***
+def solution(A, B):
+    answer = 0
+    cnt=0
+    for i in range(len(A)) : 
+        if A == B : 
+            break
+        else :
+            A=list(A)
+            A.insert(0,A.pop())
+            A=''.join(A)
+            cnt+=1
+    if A==B :
+        answer = cnt
+    else :
+        answer = -1
+        
+    return answer
+
+    '''
+    from collections import deque
+
+    def solution(A, B):
+        a, b = deque(A), deque(B)
+        for cnt in range(0, len(A)):
+            if a == b:
+                return cnt
+            a.rotate(1)
+        return -1 
+    '''
+
+Q.종이 자르기 #***
+def solution(M, N):
+    answer = 0
+    answer=(M*N)-1
+    '''
+    종이를 1번 자르면 2장
+    종이를 2번 자르면 3장
+    종이를 3번 자르면 4장
+    '''
+    return answer
+
+Q.연속된 수의 합 #***
+def solution(num, total):
+    answer = []
+    start=total
+    '''
+    9번 테스크 케이스만 안됨. 반례예시
+    #num=3,total=0,result=[-1,0,1] 일 경우를 위해 
+    아래 if num>total 조건을 추가하였음 
+    '''
+    if num>total :
+            start=total+num
+    while True :
+        arrs=list(range(start,start-num,-1))
+        if sum(arrs)==total:
+            answer=arrs
+            break
+        start-=1
+        '''
+        else :
+            arrs=list(range(start,start+num))
+            if sum(arrs)==total:
+                answer=arrs
+                break
+            start+=1
+        '''
+    answer=sorted(answer)
+    return answer
+    #return [(total - (num * (num - 1) // 2)) // num + i for i in range(num)]
+    '''댓글 해석 참조 펌
+    1. result를 일반화 시키면 [x+0, x+1, x+2, x+3 ... x + (num-1)]
+    2. 그리고 위 값을 전부 더한 값이 total이 됨. total = num*x + num*(num-1)//2 ※ result의 전체요소의 갯수는 num개 이므로 x의 갯수는 num개 이고 상수 부분은 첫번째 항이 0이고 마지막항이 num-1인 등차가 1인 등차수열의 합임.
+    3. 2번에서 도출한 공식을 이제 위 코드에 대입해보면 [(total - (num * (num - 1) // 2)) // num + i for i in range(num)] = [num*x + (num * (num - 1) // 2)) - (num * (num - 1) // 2)) // num + i for i in range(num)] = [num*x // num + i for i in range(num)] = [x + i for i in range(num)] 1번에서의 result x식과 일치하므로 정답이 됨.
+
+
+    '''
+Q.다음에 올 숫자
+def solution(common):
+    answer = 0
+    if abs(common[1]-common[0]) == abs(common[2]-common[1]) :
+        x=common[1]-common[0] 
+        answer=common[-1]+x
+    elif (common[1]/common[0]) == common[2]/common[1] :
+        x=(common[1]/common[0])
+        answer=common[-1]*x 
+    return answer
+
+
+---------------------------------------------------------------------------------------------
+- 사용 문법 정리
+
+-최대공약수 (약분>최대공약수 : 공통되는 약수 중에서 최대 값)
+#for문으로 최대 공약수 찾기
+    for i in range(min(x,y),0,-1) : #뒤에서 부터
+        if x%i==0 and y%i==0 :
+            x=x//i 
+            y=y//i
+            break 
+
+#유클리드 호제법으로 최대 공약수(GCD, Greatest Common Divisor)를 찾기
+    def euclidean_algorithm(a, b):
+    # 큰 수와 작은 수를 구분하여 대입
+    if a < b:
+        a, b = b, a
+    
+    # b가 0이 될 때까지 반복
+    while b != 0:
+        # a를 b로 나눈 나머지를 a에 대입하고, b에는 이전의 a를 대입
+        a, b = b, a % b
+    
+    # 최대 공약수인 a를 반환
+    return a
+
+#유클리드 호제법2
+def gcd(a, b):
+    while b > 0:
+        a, b = b, a % b
+    return a
+
+#math 사용하여 최대 공약수 찾기 
+'''
+from math import gcd 
+def solution(a, b):
+    b //= gcd(a,b) #gcd (num1, num2....) : num1,num2... 들의 최대 공약수를 출력함 
+    while b%2==0:
+        b//=2
+    while b%5==0:
+        b//=5
+    return 1 if b==1 else 2
+'''
+
+'''
+from math import gcd
+
+def solution(a, b):
+    b = b / gcd(a, b)
+    for i in [2, 5]:
+        while not b % i:
+            b //= i
+
+    return 1 if b == 1 else 2
+'''
+
+
+-import math
+    gcd(): 최대공약수
+    lcm(): 최소공배수
+
+-중앙값
+x=sorted(array,reverse=True)
+answer = x[len(x)//2]
+
+sorted(array)[len(array) // 2]
+
+-최빈값 
+while len(array)!=0 : 
+    for i,x in enumerate(set(array)) :
+        array.remove(x)
+    if i==0 :
+        return x 
+return -1
+
+-짧게
+return [i*2 for i in numbers]
+answer = [i for i in range(1,n+1) if i%2!=0]
+return [i for i in range(1, n+1, 2)]
+return sum([i for i in range(2, n + 1, 2)])
+answer = sorted(numlist,key = lambda x : (abs(x-n), n-x)) 
+
+-배열 뒤집기 
+for i in range (len(num_list)//2) :
+    num_list[i],num_list[len(num_list)-1-i] = num_list[len(num_list)-1-i], num_list[i]
+num_list[::-1]
+num_list.reverse()
+while(num_list):
+    result.append(num_list.pop())
+
+-문자열 뒤집기
+for x in my_string : 
+    answer=x+answer
+return my_string[::-1]
+return ''.join(list(reversed(my_string)))
+for i in range(len(my_string)-1, -1, -1) :
+    answer += my_string[i]
+
+-리스트>문자열
+str = ''.join(list)
+
+-딕셔너리 dictionary 
+dic = {"a": 1, "b": 2}
+dic[key] : dic["a"] > 1 #단, key 값이 없는 경우 에러
+dic.get(key) : dic.get("a") > 1 #key 값이 없는 경우 None  
+dict.get(key, default=None) : print(a.get("c", 0)) > 0 #key가 존재하지 않을 경우 default 값을 출력함 
+
+-조합 ; 경우의 수 
+서로 다른 n개 중 m개를 뽑는 경우의 수 공식
+조합 nCm = (n-m)!*m! 분의 n! 
+n! 
+---------
+(n-m)!*m!
+
+import math
+    def solution(balls,share):
+        return math.comb(balls,share)
+
+def fac(n):
+        ret=1
+        for i in range(1,n+1) :
+            ret*=i
+        return ret
+answer = fac(balls)//((fac(balls-share))*fac(share))
+
+
+-배열 회전 
+if direction=='right':
+    numbers.insert(0,numbers.pop())
+elif direction=='left':
+    numbers.append(numbers.pop(0))
+
+-팩토리얼
+factorial = 1
+while factorial <= n:
+    factorial = factorial * answer
+
+-함수 
+isalpha() : x.isalpha() 알파벳 인지 ? 
+isdigit() : i.isdigit() 숫자인지 ? 
+
+-집합(set) 자료형
+교집합 s1 & s2 : set(s1)&set(s2) 교집합 #set()의 & 연산자는 두 집합(sets) 간의 교집합을 반환 
+합집합 s1 | s2 
+차집합 s1 - s2
+값 1개 추가하기 - add(): add(1) 
+값 여러 개 추가하기 - update() : s1.update([4, 5, 6]) 
+특정 값 제거하기 - remove() : s1.remove(2)
+
+-평행 ; 기울기
+좌표에서 기울기가 같다면 평행
+기울기 = y좌표의차이/x좌표의차이 
+
+-수
+제곱수  x=n**(1/2) #제곱근 2분의 1승
+기약분수 분모의 소인수가 2와 5만 존재해야 합니다.
+
+-int()
+int() : x=int(bin1,2) #bin1 값을 2진수로 변환. 단, bin1 문자열을 받아 정수로 변환  
+>>>> bin(x)[2:], bin(x).replace("0b","") #ex:0b11000 처럼 0b가 붙어 나오므로 자름 
+int('x',8) 함수 : 8/16/2진수 만자열을 정수형(int) 숫자로 형변환 할 수 있다. 
+oct() : 10진수>8진수 문자열 
+hex() : 10진수>16진수 문자열 
+bin() : 10진수 > 2진수 문자열 
+
+-문자열 밀기 
+from collections import deque
+
+def solution(A, B):
+        a, b = deque(A), deque(B)
+        for cnt in range(0, len(A)):
+            if a == b:
+                return cnt
+            a.rotate(1)
+        return -1 
+
+-종이 자르기
+answer=(M*N)-1
+'''
+종이를 1번 자르면 2장
+종이를 2번 자르면 3장
+종이를 3번 자르면 4장
+'''

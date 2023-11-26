@@ -1,0 +1,76 @@
+
+- DATE_FORMAT 
+DATE_FORMAT(DATE_OF_BIRTH, 원하는 형식) 
+DATE_FORMAT(DATE_OF_BIRTH, "%Y-%m-%d") AS BIRTH, #1992-03-16
+DATE_FORMAT(DATE_OF_BIRTH, "%Y") AS YEAR, 
+DATE_FORMAT(DATE_OF_BIRTH, "%m") AS MONTH,
+DATE_FORMAT(DATE_OF_BIRTH, "%d") AS DAY
+
+ex) DATE_OF_BIRTH = 1992-03-16 00:00:00 일떄 
+%Y #1992 
+%y #92
+%M #March 
+%m #03
+%D #16
+%d #16th
+
+WHERE SALES_DATE LIKE '2022-03%'
+MONTH(SALES_DATE)=3
+YEAR(JOINED)=2021
+HOUR(DATETIME)
+
+-IFNULL 
+IFNULL(Column명, "Null일 경우 대체 값")
+
+- SELECT 절 사용 
+NULL as USER_ID
+
+-DISTINCT 
+
+- WHERE 절 사용 
+WHERE 컬럼 IS NOT NULL <-> 컬럼 IS NULL 
+
+- UNION (DISTINCT) : 쿼리의 결과를 합친다. 중복된 ROW는 제거 
+<-> UNION ALL
+
+-LIMIT 
+LIMIT N : N개 가져오기 (행 갯수)
+LIMIT N, M : offset으로 N행부터 출력. offset의 기본숫자는 0 
+ex LIMIT 3, 2 : 3번행 부터, 2개의 행만 출력 
+
+
+-ROUND()
+ROUND(값, 자릿수)
+자릿수가 N : 소숫점 아래 N째 자리까지 반올림하여 표시
+자릿수가 -N : 반올림하여 10의 N승 자리까지 표시
+자릿수가 0 : 반올림하여 1의 자리까지 표시
+ROUND(number, decimal_places)
+-- number : 반올림할 숫자
+-- decimal_places : 소수점 아래 몇 자리까지 반올림할지 지정
+ROUND(number, decimal_places) : decimal_places 1을 넣으면 소수점 두 번째 자리에서 반올림하여 첫 번째 자리까지 반환한다.  
+
+- TRUNCATE 
+TRUNCATE(PRICE,-4)  #4자릿수를 버림. 
+TRUNC(수, [, 자릿수])
+수를 지정된 소수점 자리까지 버림하여 반환해주는 함수이다. 
+자릿수를 명시하지 않았을 경우 기본값은 0 . 즉, 정수로 반환
+
+-변수 사용 
+/*
+SET @변수명 = 대입값; 
+SELECT @변수명 := 대입값; # :=는 할당 연산자
+*/
+
+SET @HOUR = -1;
+SELECT (@HOUR := @HOUR +1) AS HOUR,
+    (SELECT COUNT(HOUR(DATETIME)) 
+    FROM ANIMAL_OUTS 
+    WHERE HOUR(DATETIME)=@HOUR) AS COUNT 
+    FROM ANIMAL_OUTS
+WHERE @HOUR < 23;
+
+
+-JOIN 
+A JOIN B라고 적혀 있는 경우, 이는 INNER JOIN을 뜻함 
+https://chlgpdus921.github.io/basecamp/MySQL-JOIN/ 
+

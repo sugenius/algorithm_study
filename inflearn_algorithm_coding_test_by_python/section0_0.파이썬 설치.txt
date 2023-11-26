@@ -12,3 +12,15 @@ IDLE에서 new File 하여 test.py 파일 수정 후 저장, F5 실행
 또는 
 py 파일을 IDLE 아이콘으로 이동하여 실행 
 
+
+#채점하기
+
+#작성한 파일 내 입력 값은 문제 내 입력값을 "input.txt" 파일에 복붙하여 저장
+#파일로 입력을 받아 테스트 
+#import sys
+#sys.stdin = open("input.txt","rt")
+#채점 대상 파이썬 파일은 "AA.py" 으로 저장
+#대상 폴더에서 AA.py 파일을 생성 또는 덮어쓰고 폴더 내 Judge(Python) 을 더블클릭하여 실행한다. 
+
+
+
