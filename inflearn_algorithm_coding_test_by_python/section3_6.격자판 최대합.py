@@ -20,7 +20,7 @@ for i in range(n):
         largest=sum1
     if sum2>largest:
         largest=sum2
-        
+
 #대각선값 찾아보기 
 sum1=sum2=0
 for i in range(n):

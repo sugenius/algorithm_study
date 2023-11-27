@@ -16,7 +16,6 @@ for i in range(1,n+1):
         result.append(i)
 
 #print(result)
-#if k > (result.length+1) :
 if k > len(result)+1 :
     print(-1)
 else :

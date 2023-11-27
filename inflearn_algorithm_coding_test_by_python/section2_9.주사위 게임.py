@@ -13,7 +13,7 @@ for i in range(n):
     elif a==b or a==c:
         money=1000+a*100 
     elif b==c : 
-        money=1000(b*100)
+        money=1000+(b*100)
     else:
         money=c*100
     if money>res : 

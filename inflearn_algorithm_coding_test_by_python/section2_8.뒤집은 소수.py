@@ -11,7 +11,7 @@ def reverse(x) :
         t=x%10 
         res=res*10+t
         x=x//10
-    return res 
+    return res  
 
 def isPrime(x) : 
     if x==1 : 
